@@ -13,10 +13,11 @@ class FlatAdmin(admin.ModelAdmin):
                     )
     list_editable = ('new_building',)
     list_filter = ('new_building', 'rooms_number', 'has_balcony')
+    raw_id_fields = ('likes',)
 
 
 class ClaimAdmin(admin.ModelAdmin):
-    raw_id_fields = ('flat',)
+    raw_id_fields = ('flat','user')
 
 
 admin.site.register(Flat, FlatAdmin)
