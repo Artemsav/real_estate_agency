@@ -45,6 +45,7 @@ class Flat(models.Model):
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
-        db_index=True)    
+        db_index=True)
+
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
