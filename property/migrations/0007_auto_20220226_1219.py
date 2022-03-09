@@ -17,7 +17,7 @@ def fill_data_field(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('property', '0006_merge_20220226_1217'),
+        ('property', '0003_flat_new_building'),
     ]
 
     operations = [
