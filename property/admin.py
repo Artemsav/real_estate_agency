@@ -4,7 +4,8 @@ from .models import Flat, Claim, Owner
 
 
 class OwnerInline(admin.TabularInline):
-    pass
+    model = Owner.my_flats.through
+    raw_id_fields = ('owner',)
 
 
 class FlatAdmin(admin.ModelAdmin):
