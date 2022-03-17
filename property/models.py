@@ -9,7 +9,7 @@ class Flat(models.Model):
     owner_name = models.CharField('ФИО владельца', max_length=200)
     owner_pure_phone = PhoneNumberField('Нормализованный номер владельца', blank=True, null=True)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    new_building = models.NullBooleanField('Новостройка')
+    new_building = models.NullBooleanField('Новостройка', db_index=True)
     description = models.TextField('Текст объявления', blank=True)
     price = models.IntegerField('Цена квартиры', db_index=True)
 
@@ -46,7 +46,7 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True)
-    likes = models.ManyToManyField(User, verbose_name='Кто лайкнул')
+    likes = models.ManyToManyField(User, verbose_name='Кто лайкнул', blank=True, related_name='likes_owner')
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -57,8 +57,8 @@ class Flat(models.Model):
 
 
 class Claim(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Кто жаловался')
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира на которую пожаловались')
+    claim_owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Кто жаловался', related_name='user')
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='Квартира на которую пожаловались', related_name='flat')
     description = models.TextField('Текст жалобы', blank=True)
 
 
@@ -66,7 +66,7 @@ class Owner(models.Model):
     name = models.CharField('ФИО владельца', max_length=200, db_index=True)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     owner_pure_phone = PhoneNumberField('Нормализованный номер владельца', blank=True, null=True)
-    my_flats = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности', db_index=True)
+    flats = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности', db_index=True, blank=True, related_name='flats')
 
     def __str__(self):
         return f'{self.name}, {self.owners_phonenumber}'
