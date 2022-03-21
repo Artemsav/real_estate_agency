@@ -12,9 +12,6 @@ def validate_numbers(apps, schema_editor):
         if phonenumbers.is_valid_number(number):
             flat.owner_pure_phone = phonenumbers.format_number(number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
             flat.save()
-        else:
-            flat.owner_pure_phone = None
-            flat.save()
 
 
 class Migration(migrations.Migration):

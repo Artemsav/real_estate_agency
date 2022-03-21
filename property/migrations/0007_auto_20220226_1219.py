@@ -6,11 +6,10 @@ from django.db import migrations
 def fill_data_field(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
+        flat.new_building = False
+        flat.save()
         if flat.construction_year > 2014:
             flat.new_building = True
-            flat.save()
-        else:
-            flat.new_building = False
             flat.save()
 
 
