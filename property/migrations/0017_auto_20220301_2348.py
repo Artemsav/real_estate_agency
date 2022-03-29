@@ -7,7 +7,7 @@ def link_owner_flat(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
     all_flats = Flat.objects.all()
-    for flat in all_flats:
+    for flat in all_flats.iterator():
         owner = Owner.objects.filter(name=flat.owner_name).first()
         owner.flats.add(flat)
 

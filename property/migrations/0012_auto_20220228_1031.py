@@ -7,7 +7,8 @@ import phonenumber_field.modelfields
 
 def validate_numbers(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    flats = Flat.objects.all()
+    for flat in flats.iterator():
         number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
         if phonenumbers.is_valid_number(number):
             flat.owner_pure_phone = phonenumbers.format_number(number, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
