@@ -17,11 +17,6 @@ class Migration(migrations.Migration):
             field=models.CharField(db_index=True, max_length=200, verbose_name='ФИО владельца'),
         ),
         migrations.AlterField(
-            model_name='owner',
-            name='my_flats',
-            field=models.ManyToManyField(db_index=True, to='property.Flat', verbose_name='Квартиры в собственности'),
-        ),
-        migrations.AlterField(
             model_name='flat',
             name='new_building',
             field=models.NullBooleanField(db_index=True, verbose_name='Новостройка'),
